@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Canvas"
 include(":app")
 include(":canvasdemo")
+include(":circle_oval")
