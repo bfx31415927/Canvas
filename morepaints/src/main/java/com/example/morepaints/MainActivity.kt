@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PointMode
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
@@ -71,7 +72,8 @@ fun DrawPath() {
         }
         drawPath(
             path = path,
-            Color.Blue
+            Color.Blue,
+            style = Fill //Fill - по дефолту (можно также Stroke(width = 4f))
         )
     }
 }
