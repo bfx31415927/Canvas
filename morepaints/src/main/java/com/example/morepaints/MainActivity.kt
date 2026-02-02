@@ -20,7 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
@@ -34,8 +36,17 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import com.example.morepaints.ui.theme.MorePaintsTheme
 import kotlin.math.PI
 
@@ -135,6 +146,51 @@ fun DrawImage() {
     }
 }
 
+@Composable
+fun DrawText() {
+    val colorList: List<Color> = listOf(
+        Color.Black,
+        Color.Blue, Color.Yellow, Color.Red, Color.Green, Color.Magenta
+    )
+    val textMeasurer = rememberTextMeasurer()
+    val annotatedText = buildAnnotatedString {
+        withStyle(
+            style = SpanStyle(
+                fontSize = 50.sp,
+                fontWeight = FontWeight.ExtraBold,
+                brush = Brush.verticalGradient(colors = colorList)
+            )
+        ) {
+            append("Text Drawing")
+        }
+    }
+
+    Canvas(
+        modifier = Modifier
+            .size(300.dp, 140.dp)
+            .background(Color(0xFFADD8E6))
+    ) {
+        val dimensions = textMeasurer.measure(annotatedText)
+
+        drawText(
+            textMeasurer = textMeasurer,
+            text = annotatedText,
+            topLeft = Offset.Zero)
+
+       drawRect(
+            brush = Brush.horizontalGradient(colors = colorList),
+            size = dimensions.size.toSize(),
+           topLeft = Offset(x = 0.dp.toPx(), y = 60.dp.toPx())
+        )
+
+        drawText(
+            textMeasurer = textMeasurer,
+            text = annotatedText,
+            topLeft = Offset(x = 0.dp.toPx(), y = 60.dp.toPx())
+        )
+    }
+}
+
 
 @Composable
 fun MainScreen() {
@@ -152,6 +208,10 @@ fun MainScreen() {
         Spacer(modifier = Modifier.height(20.dp))
 
         DrawImage()
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        DrawText()
     }
 }
 
