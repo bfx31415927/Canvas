@@ -194,9 +194,9 @@ fun MainScreen() {
 
         RectGradientFill()
 
+        RadialFill()
         Spacer(modifier = Modifier.height(20.dp))
 
-        RadialFill()
 
         Spacer(modifier = Modifier.height(20.dp))
 
